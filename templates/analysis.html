@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>支出分析</title>
+  </head>
+  <body>
+    <h1>支出分析</h1>
+
+    {% if predicted_next is not none %}
+    <p>予測支出：${{ predicted_next | round(2) }}</p>
+    {% else %}
+    <p>予測支出：データがありません</p>
+    {% endif %} {% if image_base64 %}
+    <h2>直近月の支出内訳</h2>
+    <img src="data:image/png;base64,{{ image_base64 }}" alt="支出内訳グラフ" />
+    {% else %}
+    <p>{{ advice }}</p>
+    {% endif %}
+
+    <h2>来月の支出予測</h2>
+    <p>{{ advice }}</p>
+    <p>予算：${{ budget }}</p>
+
+    {% if predicted_next is not none %}
+    <p>予測支出：${{ predicted_next | round(2) }}</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">戻る</a>
+  </body>
+</html>

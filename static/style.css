@@ -1,0 +1,86 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9fb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #3f51b5;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #5c6bc0;
+  padding: 0.5rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+  color: #3f51b5;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+}
+
+th {
+  background-color: #e8eaf6;
+}
+
+button, input[type="submit"] {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #303f9f;
+}
+
+input, select {
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

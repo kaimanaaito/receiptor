@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>レシート追加</title>
+  </head>
+  <body>
+    <h1>レシート登録</h1>
+    <form method="POST">
+      店名: <input type="text" name="store_name" required /><br />
+      購入日: <input type="date" name="purchase_date" required /><br /><br />
+
+      <h3>アイテム</h3>
+      <div id="items">
+        <div>
+          名前: <input type="text" name="item_name" required /> 金額:
+          <input type="number" step="0.01" name="item_amount" required />
+          ラベル: <input type="text" name="item_label" />
+        </div>
+      </div>
+
+      <button type="button" onclick="addItem()">+ アイテム追加</button
+      ><br /><br />
+      <input type="submit" value="保存" />
+    </form>
+
+    <script>
+      function addItem() {
+        const itemDiv = document.createElement("div");
+        itemDiv.innerHTML = `
+                名前: <input type="text" name="item_name" required>
+                金額: <input type="number" step="0.01" name="item_amount" required>
+                ラベル: <input type="text" name="item_label">
+            `;
+        document.getElementById("items").appendChild(itemDiv);
+      }
+    </script>
+  </body>
+</html>

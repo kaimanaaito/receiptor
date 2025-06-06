@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>アップロード結果</title>
+  </head>
+  <body>
+    <h1>CSV支出分析結果</h1>
+    <ul>
+      <li>平均（mean）: {{ mean | round(2) }}</li>
+      <li>中央値（median）: {{ median | round(2) }}</li>
+      <li>標準偏差（std）: {{ std | round(2) }}</li>
+    </ul>
+    <p><a href="{{ url_for('upload_csv') }}">別のCSVをアップロード</a></p>
+    <p><a href="{{ url_for('index') }}">ホームに戻る</a></p>
+  </body>
+</html>

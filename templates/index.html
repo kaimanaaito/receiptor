@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>支出一覧</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>支出履歴</h1>
+    <a href="{{ url_for('add_receipt') }}">新しいレシートを追加</a>
+    <a href="{{ url_for('analysis') }}">分析ページへ</a>
+    <p><a href="{{ url_for('clustering') }}">支出クラスタリング分析</a></p>
+    <p><a href="{{ url_for('correlation') }}">自己投資と支出の相関分析</a></p>
+    <p><a href="{{ url_for('upload_csv') }}">CSVファイルを使った分析</a></p>
+
+    <!-- 予算と節約目標の表示 -->
+    <h2>予算と節約目標</h2>
+    <p>月間予算: ${{ "%.2f"|format(monthly_budget) }}</p>
+    <p>節約目標: ${{ "%.2f"|format(savings_goal) }}</p>
+
+    <!-- 自己投資合計の表示 -->
+    <h2>自己投資支出合計</h2>
+    <p>${{ "%.2f"|format(total_self_investment) }}</p>
+
+    <!-- 予算と節約目標の設定（フォーム） -->
+    <h2>予算と節約目標の設定</h2>
+    <form method="POST" action="{{ url_for('index') }}">
+      <label
+        >月間予算（ドル）:
+        <input
+          type="number"
+          step="0.01"
+          name="monthly_budget"
+          value="{{ monthly_budget }}"
+        />
+      </label>
+      <br />
+      <label
+        >節約したい金額（ドル）:
+        <input
+          type="number"
+          step="0.01"
+          name="savings_goal"
+          value="{{ savings_goal }}"
+        />
+      </label>
+      <br />
+      <button type="submit">保存</button>
+    </form>
+
+    <h3>現在の目標</h3>
+    <p>月間予算: ${{ "%.2f"|format(monthly_budget) }}</p>
+    <p>節約目標: ${{ "%.2f"|format(savings_goal) }}</p>
+
+    <!-- 自己投資割合表示 -->
+    <h2>月ごとの自己投資割合</h2>
+    <ul>
+      {% for month, total in monthly_total.items() %} {% set self_invest =
+      monthly_self_invest.get(month, 0) %} {% set ratio = (self_invest / total *
+      100) if total > 0 else 0 %}
+      <li>
+        {{ month }}: 自己投資 ${{ "%.2f"|format(self_invest) }} ({{
+        "%.1f"|format(ratio) }}%)
+      </li>
+      {% endfor %}
+    </ul>
+
+    <!-- 以下は既存コード -->
+    <h2>日別支出</h2>
+    {% for date, items in items_by_date.items() %}
+    <h3>{{ date }}</h3>
+    <ul>
+      {% for item in items %}
+      <li>
+        {{ item.name }} - ${{ "%.2f"|format(item.amount) }} ({{ item.label or
+        'なし' }})
+        <form
+          method="POST"
+          action="{{ url_for('delete_item', item_id=item.id) }}"
+          style="display: inline"
+        >
+          <button
+            type="submit"
+            onclick="return confirm('このアイテムを削除しますか？');"
+          >
+            アイテム削除
+          </button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+
+    <h2>週別合計</h2>
+    <ul>
+      {% for week, total in weekly_total.items() %}
+      <li>Week {{ week }}: ${{ "%.2f"|format(total) }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>月別合計</h2>
+    <ul>
+      {% for month, total in monthly_total.items() %}
+      <li>{{ month }}: ${{ "%.2f"|format(total) }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>削除操作</h2>
+    <ul>
+      {% for receipt in receipts %}
+      <li>
+        {{ receipt.store_name }} ({{ receipt.purchase_date }})
+        <form
+          method="POST"
+          action="{{ url_for('delete_receipt', receipt_id=receipt.id) }}"
+          style="display: inline"
+        >
+          <button
+            type="submit"
+            onclick="return confirm('本当に削除しますか？');"
+          >
+            削除
+          </button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

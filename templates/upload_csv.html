@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSVアップロード分析</title>
+  </head>
+  <body>
+    <h1>CSVファイルをアップロードして支出分析</h1>
+    <form
+      action="{{ url_for('upload_csv') }}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <input type="file" name="file" accept=".csv" required />
+      <button type="submit">アップロードして分析</button>
+    </form>
+    <p>
+      <strong>注意：</strong
+      >amount列を含むCSVファイルをアップロードしてください。
+    </p>
+    <p><a href="{{ url_for('index') }}">ホームに戻る</a></p>
+  </body>
+</html>
